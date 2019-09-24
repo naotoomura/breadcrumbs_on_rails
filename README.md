@@ -181,7 +181,7 @@ end
 
 ### Restricting breadcrumb scope
 
-The `add_breadcrumb` method understands all options you are used to pass to a Rails controller filter. In fact, behind the scenes this method uses a `before_filter` to store the tab in the `@breadcrumbs` variable.
+The `add_breadcrumb` method understands all options you are used to pass to a Rails controller filter. In fact, behind the scenes this method uses a `before_filter` to store the tab in the `@breadcrumbs_list` variable.
 
 Taking advantage of Rails filter options, you can restrict a tab to a selected group of actions in the same controller.
 

@@ -15,6 +15,7 @@ module BreadcrumbsOnRails
       extend          ClassMethods
       helper          HelperMethods
       helper_method   :add_breadcrumb, :breadcrumbs
+      helper_method   :next_breadcrumbs_list, :breadcrumbs_list
 
       unless base.respond_to?(:before_action)
         base.alias_method :before_action, :before_filter
@@ -28,7 +29,15 @@ module BreadcrumbsOnRails
     end
 
     def breadcrumbs
-      @breadcrumbs ||= []
+      self.breadcrumbs_list.last
+    end
+
+    def next_breadcrumbs_list
+      self.breadcrumbs_list << []
+    end
+
+    def breadcrumbs_list
+      @breadcrumbs_list ||= [[]]
     end
 
     module Utils
@@ -83,15 +92,17 @@ module BreadcrumbsOnRails
     module HelperMethods
 
       def render_breadcrumbs(options = {}, &block)
-        builder = (options.delete(:builder) || Breadcrumbs::SimpleBuilder).new(self, breadcrumbs, options)
-        content = builder.render.html_safe
-        if block_given?
-          capture(content, &block)
-        else
-          content
-        end
+        option_builder = options.delete(:builder)
+        breadcrumbs_list.map do |bcs|
+          builder = (option_builder || Breadcrumbs::SimpleBuilder).new(self, bcs, options)
+          content = builder.render
+          if block_given?
+            capture(content, &block)
+          else
+            content
+          end
+        end.join( options.delete(:list_separator)).html_safe
       end
-
     end
 
   end
