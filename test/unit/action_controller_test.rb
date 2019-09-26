@@ -104,7 +104,7 @@ class MultipleExampleController < ActionController::Base
     add_breadcrumb "Hoge", "/hoge/"
     add_breadcrumb "Me", "/hoge/moge"
 
-    next_breadcrumbs_list
+    next_breadcrumbs
 
     add_breadcrumb "String", "/"
     add_breadcrumb "Moge", "/moge/"
@@ -118,7 +118,7 @@ class MultipleExampleController < ActionController::Base
     add_breadcrumb "Proc", proc { |c| "/?proc" }
     add_breadcrumb "Polymorphic", [:admin, :namespace]
 
-    next_breadcrumbs_list
+    next_breadcrumbs
 
     add_breadcrumb "String", "/hoge/"
     add_breadcrumb "Proc", proc { |c| "/?proc" }

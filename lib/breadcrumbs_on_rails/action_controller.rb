@@ -15,7 +15,7 @@ module BreadcrumbsOnRails
       extend          ClassMethods
       helper          HelperMethods
       helper_method   :add_breadcrumb, :breadcrumbs
-      helper_method   :next_breadcrumbs_list, :breadcrumbs_list
+      helper_method   :next_breadcrumbs, :breadcrumbs_list
 
       unless base.respond_to?(:before_action)
         base.alias_method :before_action, :before_filter
@@ -32,7 +32,7 @@ module BreadcrumbsOnRails
       self.breadcrumbs_list.last
     end
 
-    def next_breadcrumbs_list
+    def next_breadcrumbs
       self.breadcrumbs_list << []
     end
 
