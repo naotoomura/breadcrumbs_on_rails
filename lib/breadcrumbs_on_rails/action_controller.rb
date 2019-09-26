@@ -27,15 +27,15 @@ module BreadcrumbsOnRails
     def add_breadcrumb(name, path = nil, options = {})
       option_index = options.delete(:index)
 
-      if option_index
-        self.breadcrumbs_list[option_index] << Breadcrumbs::Element.new(name, path, options)
-      else
-        self.breadcrumbs << Breadcrumbs::Element.new(name, path, options)
-      end
+      self.breadcrumbs(option_index) << Breadcrumbs::Element.new(name, path, options)
     end
 
-    def breadcrumbs
-      self.breadcrumbs_list.last
+    def breadcrumbs(index = nil)
+      if index
+        self.breadcrumbs_list[index]
+      else
+        self.breadcrumbs_list.last
+      end
     end
 
     def next_breadcrumbs
