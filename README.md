@@ -59,6 +59,55 @@ class MyController
 end
 ```
 
+### Multiple breadcrumns
+For using multiple breadcrumbs, call `next_breadcrumbs` to create new breadcrumb stack.
+
+```ruby
+class MyController
+
+  def index
+    # ...
+
+    add_breadcrumb "home", :root_path
+    add_breadcrumb "my", :my_path
+    add_breadcrumb "index", index_path
+
+    next_breadcrumbs
+
+    add_breadcrumb "home", :root_path
+    add_breadcrumb "another", :another_path
+    add_breadcrumb "index", index_path
+
+  end
+
+end
+```
+
+When after create new breadcrumb stack, if you want to push to an existing stack.
+
+```ruby
+class MyController
+
+  add_breadcrumb "home", :root_path
+  next_breadcrumbs
+  add_breadcrumb "home", :root_path
+
+  def index
+    # ...
+
+    add_breadcrumb "my", :my_path, index: 0
+    add_breadcrumb "index", index_path, index: 0
+
+    add_breadcrumb "another", :another_path, index: 1
+    add_breadcrumb "index", index_path, index: 1
+  end
+
+end
+```
+
+
+### Render
+
 In your view, you can render the breadcrumb menu with the `render_breadcrumbs` helper.
 
 ```html
@@ -88,6 +137,7 @@ Current possible options are:
 
 - `:separator`
 - `:tag`
+- `:list_separator`
 
 To use with Bootstrap you might use the following:
 
