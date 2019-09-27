@@ -83,7 +83,7 @@ class MyController
 end
 ```
 
-When after create new breadcrumb stack, if you want to push to an existing stack.
+You can push a new element to an arbitrary stack by specifying an `index` option.
 
 ```ruby
 class MyController
