@@ -31,10 +31,11 @@ module BreadcrumbsOnRails
     end
 
     def breadcrumbs(index = nil)
+      @breadcrumbs = self.breadcrumbs_list.last # for compatible to single breadcrumbs version. 
       if index
         self.breadcrumbs_list[index]
       else
-        self.breadcrumbs_list.last
+        @breadcrumbs
       end
     end
 
