@@ -34,31 +34,30 @@ module BreadcrumbsOnRails
     def add_breadcrumb_on_rails(name, path = nil, options = {})
       option_index = options.delete(:index)
 
-      self.breadcrumbs(option_index) << Breadcrumbs::Element.new(name, path, options)
+      breadcrumbs_on_rails(option_index) << Breadcrumbs::Element.new(name, path, options)
     end
     alias add_breadcrumb add_breadcrumb_on_rails
 
     # Gets the list of all breadcrumb element in the collection.
     #
     # @return [Array<Breadcrumbs::Element>]
-    def breadcrumbs_on_rails
-      @breadcrumbs = self.breadcrumbs_list.last # for compatible to single breadcrumbs version. 
+    def breadcrumbs_on_rails(index = nil)
+      @breadcrumbs_on_rails = self.breadcrumbs_list.last # for compatible to single breadcrumbs version. 
       if index
-        self.breadcrumbs_list[index]
+        breadcrumbs_list[index]
       else
-        @breadcrumbs
+        @breadcrumbs_on_rails
       end
     end
 
     def next_breadcrumbs
-      self.breadcrumbs_list << []
+      @breadcrumbs_list << []
     end
 
     def breadcrumbs_list
       @breadcrumbs_list ||= [[]]
     end
     alias breadcrumbs breadcrumbs_on_rails
-
 
     module ClassMethods
 
