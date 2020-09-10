@@ -78,7 +78,7 @@ module BreadcrumbsOnRails
       def render_breadcrumbs(options = {}, &block)
         option_builder = options.delete(:builder)
         option_list_separator = options.delete(:list_separator)
-        breadcrumbs_list.map do |bcs|
+        list = breadcrumbs_list.map do |bcs|
           builder = (option_builder || Breadcrumbs::SimpleBuilder).new(self, bcs, options)
           content = builder.render
           if block_given?
@@ -86,7 +86,8 @@ module BreadcrumbsOnRails
           else
             content
           end
-        end.join(option_list_separator).html_safe
+        end
+        list.join(option_list_separator).html_safe
       end
     end
 
