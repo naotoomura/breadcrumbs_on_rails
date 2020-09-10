@@ -52,7 +52,7 @@ module BreadcrumbsOnRails
     alias breadcrumbs breadcrumbs_on_rails
 
     def next_breadcrumbs
-      self.breadcrumbs_list << []
+      @breadcrumbs_list << []
     end
 
     def breadcrumbs_list
